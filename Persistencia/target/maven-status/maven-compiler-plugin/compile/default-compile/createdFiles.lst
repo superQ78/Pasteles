@@ -1,0 +1,4 @@
+com\mycompany\persistencia\PedidoDAO.class
+com\mycompany\persistencia\UsuarioDAO.class
+Entidades\PedidoEntidad.class
+Entidades\UsuarioEntidad.class
