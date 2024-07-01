@@ -4,38 +4,47 @@
  */
 package com.mycompany.pasteleriabo;
 
+import Entidades.UsuarioEntidad;
 import com.mycompany.dto.UsuarioDTO;
-import java.util.ArrayList;
-import java.util.List;
+import com.mycompany.persistencia.UsuarioDAO;
+
 
 /**
  *
  * @author cesar
  */
 public class UsuarioBO {
-    List<UsuarioDTO> usuariosRegistrados = new ArrayList<>();
+   private UsuarioDAO usuarioDAO;
 
     public UsuarioBO() {
-        UsuarioDTO usuariosGerente1 = new UsuarioDTO("Cesar", "cesar123", "Empleado");
-        UsuarioDTO usuariosEmpleado1 = new UsuarioDTO("Valeria", "valeria123", "Gerente");
-        UsuarioDTO usuariosGerente2 = new UsuarioDTO("Joel", "joel123", "Empleado");
-
-        usuariosRegistrados.add(usuariosGerente2);
-        usuariosRegistrados.add(usuariosGerente1);
-        usuariosRegistrados.add(usuariosEmpleado1);
+        this.usuarioDAO = new UsuarioDAO();
     }
 
     public UsuarioDTO obtenerUsuario(UsuarioDTO usuarioDTO) {
-        for (int i = 0; i < usuariosRegistrados.size(); i++) {
-            if (usuariosRegistrados.get(i).getNombre().equals(usuarioDTO.getNombre())
-                    && usuariosRegistrados.get(i).getContrasena().equals(usuarioDTO.getContrasena())) {
-                return usuariosRegistrados.get(i);
-            }
-        }
-        return null;
+        return usuarioDAO.obtenerUsuario(usuarioDTO);
     }
 
     public boolean validarCredenciales(UsuarioDTO usuarioDTO, String rolEsperado) {
         return usuarioDTO != null && usuarioDTO.getRol().equals(rolEsperado);
+    }
+
+    // Métodos estáticos de conversión movidos a una clase de utilidad o servicio
+
+    // Esto podría ser parte de una clase de utilidad separada
+    public static UsuarioEntidad convertirDTOaEntidad(UsuarioDTO dto) {
+        UsuarioEntidad entidad = new UsuarioEntidad();
+        entidad.setNombre(dto.getNombre());
+        entidad.setContrasena(dto.getContrasena());
+        entidad.setRol(dto.getRol());
+        return entidad;
+    }
+
+    // Esto también podría ser parte de una clase de utilidad separada
+    public static UsuarioDTO convertirEntidadaDTO(UsuarioEntidad entidad) {
+        UsuarioDTO dto = new UsuarioDTO();
+        dto.setNombre(entidad.getNombre());
+        dto.setContrasena(entidad.getContrasena());
+        dto.setRol(entidad.getRol());
+        return dto;
     }
 }

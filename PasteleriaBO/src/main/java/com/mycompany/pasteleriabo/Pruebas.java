@@ -18,7 +18,7 @@ public class Pruebas {
     public static void main(String[] args) {
         // Crear un nuevo pedido
         PedidoDTO pedido = new PedidoDTO();
-        pedido.setFecha(new Date());
+        pedido.setFechaPedido(new Date());
         pedido.setColoresDecorativos("Rojo y Blanco");
         pedido.setObleaDecorativa(true);
         pedido.setRellenoSabor("Chocolate");

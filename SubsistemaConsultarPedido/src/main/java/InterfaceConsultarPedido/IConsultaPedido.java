@@ -4,6 +4,8 @@
  */
 package InterfaceConsultarPedido;
 
+import Entidades.PedidoEntidad;
+import com.mycompany.dto.ClienteDTO;
 import com.mycompany.dto.PedidoDTO;
 import java.util.List;
 
@@ -12,5 +14,11 @@ import java.util.List;
  * @author Valeria
  */
 public interface IConsultaPedido {
-    List<PedidoDTO> obtenerPedidos();
+    
+    List<PedidoEntidad> obtenerPedidos();
+    
+      List<PedidoDTO> obtenerPedidosPorCliente(String clienteId);
+      ClienteDTO obtenerClientePorPedidoId(String Clienteid);
+      
+      
 }

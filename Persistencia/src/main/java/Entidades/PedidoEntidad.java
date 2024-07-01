@@ -12,7 +12,7 @@ import java.util.Date;
  */
 public class PedidoEntidad {
 
-    private Long id; // Identificador único de pedido
+    private int pedidoid; // Identificador único de pedido
     private int totalPersonas;
     private String saborPan;
     private boolean obleaDecorativa;
@@ -20,20 +20,30 @@ public class PedidoEntidad {
     private String rellenoSabor;
     private int totalVelas;
     private Date fechaPedido;
+    private int precioTotal;
+    private String clienteId;
+    
 
     // Constructor vacío
     public PedidoEntidad() {
     }
+    
+    public PedidoEntidad(int pedidoid, int precioTotal) {
+        this.pedidoid = pedidoid;
+        this.precioTotal = precioTotal;
+    }
 
     // Getters y setters
 
-    public Long getId() {
-        return id;
+    public int getPedidoid() {
+        return pedidoid;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPedidoid(int pedidoid) {
+        this.pedidoid = pedidoid;
     }
+
+ 
 
     public int getTotalPersonas() {
         return totalPersonas;
@@ -91,18 +101,23 @@ public class PedidoEntidad {
         this.fechaPedido = fechaPedido;
     }
 
-    // Método toString() para imprimir los datos del objeto
-    @Override
-    public String toString() {
-        return "PedidoEntidad{" +
-                "id=" + id +
-                ", totalPersonas=" + totalPersonas +
-                ", saborPan='" + saborPan + '\'' +
-                ", obleaDecorativa=" + obleaDecorativa +
-                ", coloresDecorativos='" + coloresDecorativos + '\'' +
-                ", rellenoSabor='" + rellenoSabor + '\'' +
-                ", totalVelas=" + totalVelas +
-                ", fechaPedido=" + fechaPedido +
-                '}';
+    public int getPrecioTotal() {
+        return precioTotal;
     }
-}
+
+    public void setPrecioTotal(int precioTotal) {
+        this.precioTotal = precioTotal;
+    }
+
+   
+
+    public String getClienteId() {
+        return clienteId;
+    }
+
+    public void setClienteId(String clienteId) {
+        this.clienteId = clienteId;
+    }
+ 
+   
+    }

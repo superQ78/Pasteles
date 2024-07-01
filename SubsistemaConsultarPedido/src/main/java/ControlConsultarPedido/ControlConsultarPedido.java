@@ -4,8 +4,12 @@
  */
 package ControlConsultarPedido;
 
+import Entidades.PedidoEntidad;
+import com.mycompany.dto.ClienteDTO;
 import com.mycompany.dto.PedidoDTO;
 import com.mycompany.pasteleriabo.ConsultaBO;
+import com.mycompany.pasteleriabo.PedidoBO;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,14 +17,25 @@ import java.util.List;
  * @author Valeria
  */
 public class ControlConsultarPedido {
-    private ConsultaBO consultarPedido;
+    private ConsultaBO consultaBO;
+    private PedidoBO pedidoBO;
 
     public ControlConsultarPedido() {
-        this.consultarPedido = new ConsultaBO();
+this.consultaBO = new ConsultaBO();
+        this.pedidoBO = new PedidoBO(); 
     }
 
-    public List<PedidoDTO> obtenerPedidos() {
-        return consultarPedido.obtenerPedidos();
+    public List<PedidoEntidad> obtenerPedidos() {
+        return consultaBO.obtenerPedidos();
     }
 
+      public List<PedidoDTO> obtenerPedidosPorCliente(String clienteId) {
+        return pedidoBO.obtenerPedidosPorCliente(clienteId);
+      
+        
+      }
+    public ClienteDTO obtenerClientePorPedidoId(String Clienteid) {
+        return consultaBO.obtenerClientePorPedidoId(Clienteid);
+    }
+     
 }

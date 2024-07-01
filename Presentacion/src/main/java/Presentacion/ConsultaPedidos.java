@@ -4,48 +4,52 @@
  */
 package Presentacion;
 
-
-import InterfaceConsultarPedido.IConsultaPedido;
+import InterfaceInicioSesion.IInicioSesion;
 import InterfaceRealizarPedido.IPedido;
 import com.mycompany.dto.PedidoDTO;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Valeria
  */
 public class ConsultaPedidos extends javax.swing.JFrame {
-private IConsultaPedido consulta;
-private PedidoDTO pedidoDTO;
+
+   private PedidoDTO pedidoDTO;
+    private IInicioSesion inicioSesion;
 private IPedido pedido;
     /**
      * Creates new form ConsultaPedido
-     * @param consulta
+     *
+     *
      * @param pedido
+     * @param pedidoDTO
+     * @param inicioSesion
      */
-    public ConsultaPedidos(IConsultaPedido consulta, IPedido pedido,PedidoDTO pedidoDTO) {
-        this.consulta =  consulta;
-        this.pedido = pedido;
-      this.pedidoDTO = pedidoDTO;
+    public ConsultaPedidos(IPedido pedido, PedidoDTO pedidoDTO, IInicioSesion inicioSesion) {
+       
+
+        this.inicioSesion = inicioSesion;
         initComponents();
         setSize(430, 600);
         setResizable(false);
         this.setLocationRelativeTo(this);
-         llenarDetallesPedido(pedidoDTO);
-    }
-    
-     private void llenarDetallesPedido(PedidoDTO pedidoDTO) {
-        // Asumiendo que PedidoDTO tiene los métodos apropiados para obtener estos valores
-        double precioTotal = pedido.calcularPrecio(pedidoDTO);
-        PersonasLabel.setText(String.valueOf(pedidoDTO.getTotalPersonas()));
-        coloresLabel.setText(pedidoDTO.getColoresDecorativos());
-        ObleaLabel.setText(pedidoDTO.isObleaDecorativa() ? "Sí" : "No");
-        rellenoLabel.setText(pedidoDTO.getRellenoSabor());
-        panLabel.setText(pedidoDTO.getSaborPan());
-        velasLabel.setText(String.valueOf(pedidoDTO.getTotalVelas()));
-        fechaLabel.setText(pedidoDTO.getFecha().toString());
-        precioLabel.setText("Precio Total: $" + precioTotal);
+        llenarDetallesPedido(pedidoDTO);
 
     }
+
+    private void llenarDetallesPedido(PedidoDTO pedidoDTO) { 
+
+    // Actualización de etiquetas de UI
+    PersonasLabel.setText(String.valueOf(pedidoDTO.getTotalPersonas()));
+    coloresLabel.setText(pedidoDTO.getColoresDecorativos());
+    ObleaLabel.setText(pedidoDTO.isObleaDecorativa() ? "Sí" : "No");
+    rellenoLabel.setText(pedidoDTO.getRellenoSabor());
+    panLabel.setText(pedidoDTO.getSaborPan());
+    velasLabel.setText(String.valueOf(pedidoDTO.getTotalVelas()));
+    fechaLabel.setText(pedidoDTO.getFechaPedido().toString());
+    precioLabel.setText("Precio Total: $" + pedidoDTO.getPrecioTotal());
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -76,6 +80,7 @@ private IPedido pedido;
         jPanel1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         precioLabel = new javax.swing.JLabel();
+        jButtonTramitarFactura = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -121,7 +126,7 @@ private IPedido pedido;
                 jButton1ActionPerformed(evt);
             }
         });
-        obleaLabel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 500, 130, 30));
+        obleaLabel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 460, 130, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Total de personas:");
@@ -166,6 +171,14 @@ private IPedido pedido;
         precioLabel.setText("Total");
         obleaLabel.add(precioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, -1, -1));
 
+        jButtonTramitarFactura.setText("Tramitar Factura");
+        jButtonTramitarFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTramitarFacturaActionPerformed(evt);
+            }
+        });
+        obleaLabel.add(jButtonTramitarFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 510, -1, -1));
+
         getContentPane().add(obleaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 600));
 
         pack();
@@ -173,47 +186,28 @@ private IPedido pedido;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    Object par2 = null;
-         RealizarPedido regresar = new RealizarPedido( pedido, par2); // Asegúrate de tener la clase ConsultaPedidos implementada
-    regresar.setVisible(true);
-    this.dispose();
+
+        RealizarPedido regresar = new RealizarPedido(pedido); // Asegúrate de tener la clase ConsultaPedidos implementada
+        regresar.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-   /* public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-      /*  try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ConsultaPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ConsultaPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ConsultaPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ConsultaPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void jButtonTramitarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTramitarFacturaActionPerformed
 
-        /* Create and display the form */
-      /*  java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ConsultaPedidos().setVisible(true);
-            }
-        });
-    }*/
+        int option = JOptionPane.showConfirmDialog(this,
+                "Solo gerencia puede tramitar facturas, ¿desea iniciar sesión como gerente?",
+                "Tramitar Factura",
+                JOptionPane.YES_NO_OPTION);
+
+        if (option == JOptionPane.YES_OPTION) {
+
+            InicioSesion ini = new InicioSesion(inicioSesion, pedido);
+            ini.setVisible(true);
+            this.dispose();
+        }
+
+
+    }//GEN-LAST:event_jButtonTramitarFacturaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ObleaLabel;
@@ -221,6 +215,7 @@ private IPedido pedido;
     private javax.swing.JLabel coloresLabel;
     private javax.swing.JLabel fechaLabel;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonTramitarFactura;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

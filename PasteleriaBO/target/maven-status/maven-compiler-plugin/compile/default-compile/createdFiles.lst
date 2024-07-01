@@ -1,4 +1,6 @@
 com\mycompany\pasteleriabo\ConsultaBO.class
 com\mycompany\pasteleriabo\PedidoBO.class
+com\mycompany\pasteleriabo\SATBO.class
 com\mycompany\pasteleriabo\UsuarioBO.class
 com\mycompany\pasteleriabo\Pruebas.class
+com\mycompany\pasteleriabo\FinanzasBO.class

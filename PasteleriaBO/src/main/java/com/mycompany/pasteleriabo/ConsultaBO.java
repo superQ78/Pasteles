@@ -4,24 +4,45 @@
  */
 package com.mycompany.pasteleriabo;
 
-import com.mycompany.dto.PedidoDTO;
-import java.util.ArrayList;
+import Entidades.ClienteEntidad;
+import Entidades.PedidoEntidad;
+import com.mycompany.dto.ClienteDTO;
+import com.mycompany.persistencia.ClienteDAO;
+import com.mycompany.persistencia.PedidoDAO;
+import java.util.Date;
 import java.util.List;
 
 /**
  *
- * @author Valeria
+ * @author cesar
  */
 public class ConsultaBO {
-     private static List<PedidoDTO> pedidos;
+
+    private PedidoDAO pedidoDAO;
+    private ClienteDAO clienteDAO;
 
     public ConsultaBO() {
-        this.pedidos = new ArrayList<>();
+        this.pedidoDAO = new PedidoDAO();
+        this.clienteDAO = new ClienteDAO();
     }
 
-    public List<PedidoDTO> obtenerPedidos() {
-        return this.pedidos;
+    public List<PedidoEntidad> obtenerPedidos() {
+        return pedidoDAO.consultarPedidos();
     }
 
+
+    public ClienteDTO obtenerClientePorPedidoId(String Clienteid) {
+        ClienteEntidad clienteEntidad = clienteDAO.obtenerClientePorPedidoId(Clienteid);
+        if (clienteEntidad != null) {
+            return convertirEntidadADTO(clienteEntidad);
+        }
+        return null;
+    }
+
+    private ClienteDTO convertirEntidadADTO(ClienteEntidad entidad) {
+        ClienteDTO dto = new ClienteDTO();
+        dto.setNombre(entidad.getNombre());
+        dto.setApellido(entidad.getApellido());
+        return dto;
+    }
 }
-

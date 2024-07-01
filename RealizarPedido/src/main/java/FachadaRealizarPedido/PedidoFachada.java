@@ -7,7 +7,7 @@ package FachadaRealizarPedido;
 import ControlRealizarPedido.ControlRealizarPedido;
 import InterfaceRealizarPedido.IPedido;
 import com.mycompany.dto.PedidoDTO;
-//import com.mycompany.pasteleriabo.PedidoBO;
+
 import java.util.Date;
 
 /**
@@ -46,10 +46,10 @@ public class PedidoFachada implements IPedido {
     public boolean ValidarFechMax5(Date fecha) {
         return controlRealizarPedido.ValidarFechaMax5(fecha);
     }
+     @Override
+      public void obtenerPrecioTotal(PedidoDTO pedidoDTO) {
+    controlRealizarPedido.calcularPrecio(pedidoDTO);
+}
     
-    @Override
-    public double calcularPrecio(PedidoDTO pedido) {
-        return controlRealizarPedido.calcularPrecio(pedido);
-    }
-
+    
 }

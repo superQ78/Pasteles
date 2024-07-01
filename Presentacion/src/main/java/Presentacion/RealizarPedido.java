@@ -6,6 +6,7 @@ package Presentacion;
 
 //import InterfaceConsulta.IConsultaPedido;
 import InterfaceConsultarPedido.IConsultaPedido;
+import InterfaceInicioSesion.IInicioSesion;
 import InterfaceRealizarPedido.IPedido;
 import com.mycompany.dto.PedidoDTO;
 
@@ -18,11 +19,12 @@ public class RealizarPedido extends javax.swing.JFrame {
     private IPedido pedido;
    private IConsultaPedido consulta;
    private PedidoDTO pedidoDTO;
+   private IInicioSesion inicioSesion;
 
     /**
      * Creates new form RealizarPedido
      */
-    public RealizarPedido(IPedido pedido, Object par2) {
+    public RealizarPedido(IPedido pedido) {
         initComponents();
         this.pedido = pedido;
         //this.consulta = consulta;
@@ -112,7 +114,7 @@ public class RealizarPedido extends javax.swing.JFrame {
 
     private void btnConsultarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarPedidosActionPerformed
 
-        ConsultaPedidos consultaPedidos = new ConsultaPedidos(consulta, pedido, pedidoDTO);
+        ConsultaPedidos consultaPedidos = new ConsultaPedidos( pedido, pedidoDTO, inicioSesion);
         consultaPedidos.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnConsultarPedidosActionPerformed

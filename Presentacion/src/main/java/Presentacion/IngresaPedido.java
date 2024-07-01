@@ -4,9 +4,9 @@
  */
 package Presentacion;
 
-
+import FachadaInisioSesion.UsuarioFachada;
 import FachadaRealizarPedido.PedidoFachada;
-import InterfaceConsultarPedido.IConsultaPedido;
+import InterfaceInicioSesion.IInicioSesion;
 import InterfaceRealizarPedido.IPedido;
 import com.mycompany.dto.PedidoDTO;
 import java.util.Date;
@@ -17,13 +17,16 @@ import javax.swing.JOptionPane;
  * @author cesar
  */
 public class IngresaPedido extends javax.swing.JFrame {
-
-   private IPedido pedido;
-    private IConsultaPedido consulta;
+    
+    private IPedido pedido;
     private PedidoDTO pedidoDTO;
-
+    
+    private IInicioSesion inicioSesion;
+    
     public IngresaPedido() {
         this.pedido = new PedidoFachada();
+        this.inicioSesion = new UsuarioFachada();
+        
         initComponents();
         setSize(430, 600);
         setResizable(false);
@@ -33,7 +36,6 @@ public class IngresaPedido extends javax.swing.JFrame {
     public void setPedido(IPedido pedido) {
         this.pedido = pedido;
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,6 +64,8 @@ public class IngresaPedido extends javax.swing.JFrame {
         dtcAgregarFecha = new com.toedter.calendar.JDateChooser();
         spTotalPersonas = new javax.swing.JSpinner();
         jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtNumeroTelefono = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -136,6 +140,11 @@ public class IngresaPedido extends javax.swing.JFrame {
         jLabel8.setText("Ingresar pedido");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, -1, -1));
 
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel9.setText("No.Celular:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, -1, -1));
+        jPanel1.add(txtNumeroTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 360, 140, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -152,66 +161,70 @@ public class IngresaPedido extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btRealizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRealizarPedidoActionPerformed
-   Date fecha = dtcAgregarFecha.getDate();
+        Date fecha = dtcAgregarFecha.getDate();
+        System.out.println(fecha);
+        String numeroTelefono = txtNumeroTelefono.getText();
+        // Validaciones de campos obligatorios y valores correctos
+        if (txtColores.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese los colores decorativos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (fecha == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una fecha.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (cmbSaborRelleno.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un sabor de relleno.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (cmbSaborPan.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un sabor de pan.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if ((int) spTotalPersonas.getValue() <= 0) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido de personas.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-    // Validaciones de campos obligatorios y valores correctos
-    if (txtColores.getText().trim().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Por favor, ingrese los colores decorativos.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-    if (fecha == null) {
-        JOptionPane.showMessageDialog(this, "Por favor, seleccione una fecha.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-    if (cmbSaborRelleno.getSelectedItem() == null) {
-        JOptionPane.showMessageDialog(this, "Por favor, seleccione un sabor de relleno.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-    if (cmbSaborPan.getSelectedItem() == null) {
-        JOptionPane.showMessageDialog(this, "Por favor, seleccione un sabor de pan.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-    if ((int) spTotalPersonas.getValue() <= 0) {
-        JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido de personas.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+        // Crear el objeto PedidoDTO con los datos ingresados
+        PedidoDTO pedidoDTO = new PedidoDTO();
+        pedidoDTO.setColoresDecorativos(txtColores.getText());
+        pedidoDTO.setFechaPedido(fecha);
+        pedidoDTO.setObleaDecorativa(cbOblea.isSelected());
+        pedidoDTO.setRellenoSabor((String) cmbSaborRelleno.getSelectedItem());
+        pedidoDTO.setSaborPan((String) cmbSaborPan.getSelectedItem());
+        pedidoDTO.setTotalVelas((int) spVelas.getValue());
+        pedidoDTO.setTotalPersonas((int) spTotalPersonas.getValue());
+        pedidoDTO.setClienteId((String) txtNumeroTelefono.getText());
+        pedidoDTO.setFechaPedido(fecha);
 
-    // Crear el objeto PedidoDTO con los datos ingresados
-    PedidoDTO pedidoDTO = new PedidoDTO();
-    pedidoDTO.setColoresDecorativos(txtColores.getText());
-    pedidoDTO.setFecha(fecha);
-    pedidoDTO.setObleaDecorativa(cbOblea.isSelected());
-    pedidoDTO.setRellenoSabor((String) cmbSaborRelleno.getSelectedItem());
-    pedidoDTO.setSaborPan((String) cmbSaborPan.getSelectedItem());
-    pedidoDTO.setTotalVelas((int) spVelas.getValue());
-    pedidoDTO.setTotalPersonas((int) spTotalPersonas.getValue());
+        // Validar período y cantidad máxima de pedidos en la fecha seleccionada
+        if (!pedido.ValidarPeriodo(fecha)) {
+            JOptionPane.showMessageDialog(this, "La fecha debe estar dentro del rango de la fecha actual a 6 meses en adelante.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (!pedido.ValidarFechMax5(fecha)) {
+            JOptionPane.showMessageDialog(this, "No se pueden realizar más de 2 pedidos en el mismo día.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        pedido.obtenerPrecioTotal(pedidoDTO);
+        // Agregar el pedido a través de la fachada o interfaz adecuada
+        try {
+            pedido.agregarPedido(pedidoDTO);
 
-    // Validar período y cantidad máxima de pedidos en la fecha seleccionada
-    if (!pedido.ValidarPeriodo(fecha)) {
-        JOptionPane.showMessageDialog(this, "La fecha debe estar dentro del rango de la fecha actual a 6 meses en adelante.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-    if (!pedido.ValidarFechMax5(fecha)) {
-        JOptionPane.showMessageDialog(this, "No se pueden realizar más de 2 pedidos en el mismo día.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    // Agregar el pedido a través de la fachada o interfaz adecuada
-    try {
-        pedido.agregarPedido(pedidoDTO);
-        // Mostrar la pantalla del resumen de pedidos
-        ConsultaPedidos resumen = new ConsultaPedidos(consulta, pedido, pedidoDTO);
-        resumen.setVisible(true);
-        this.dispose();
-    } catch (IllegalArgumentException e) {
-        JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
+            // Mostrar la pantalla del resumen de pedidos
+            ConsultaPedidos resumen = new ConsultaPedidos(pedido, pedidoDTO, inicioSesion);
+            resumen.setVisible(true);
+            this.dispose();
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btRealizarPedidoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         RealizarPedido realizarPedido = new RealizarPedido(); // Asegúrate de tener la clase ConsultaPedidos implementada
-    realizarPedido.setVisible(true);
-    this.dispose();
+        realizarPedido.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
@@ -231,9 +244,11 @@ public class IngresaPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSpinner spTotalPersonas;
     private javax.swing.JSpinner spVelas;
     private javax.swing.JTextField txtColores;
+    private javax.swing.JTextField txtNumeroTelefono;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,7 +4,9 @@
  */
 package com.mycompany.pasteleriabo;
 
+import Entidades.PedidoEntidad;
 import com.mycompany.dto.PedidoDTO;
+import com.mycompany.persistencia.PedidoDAO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,31 +16,72 @@ import java.util.List;
  */
 public class PedidoBO {
 
-    private List<PedidoDTO> pedidos;
+    private PedidoDAO pedidoDAO;
 
     public PedidoBO() {
-        this.pedidos = new ArrayList<>();
+        this.pedidoDAO = new PedidoDAO();
     }
 
     public List<PedidoDTO> obtenerPedidos() {
-        return pedidos;
+        List<PedidoEntidad> pedidosEntidad = pedidoDAO.consultarPedidos();
+        List<PedidoDTO> pedidosDTO = new ArrayList<>();
+        for (PedidoEntidad pedidoEntidad : pedidosEntidad) {
+            pedidosDTO.add(entityToDto(pedidoEntidad));
+        }
+        return pedidosDTO;
     }
 
-    public void agregarPedido(PedidoDTO pedido) {
-        pedidos.add(pedido);
+    public PedidoDTO obtenerPedidoPorId(int pedidoid) {
+        PedidoEntidad pedidoEntidad = pedidoDAO.obtenerPedidoPorId(pedidoid);
+        PedidoDTO pedido=entityToDto(pedidoEntidad);
+        if (pedidoEntidad != null) {
+            return pedido;
+        }
+        return null;
     }
-
-    public double calcularPrecio(PedidoDTO pedido) {
-        double precio = 0;
-
-        precio += pedido.getTotalVelas() * 5; // Velas cuestan 5 pesos cada una
-        precio += pedido.getTotalPersonas() * 10; // 10 pesos por persona
-        precio += pedido.isObleaDecorativa() ? 20 : 0; // Oblea cuesta 20 pesos
-        precio += 25; // Costo del relleno del pan
-        precio += 200; // Costo del sabor del pan
-
-        return precio * 2; // Multiplicar por 2 por la mano de obra
-    }    
+   
     
+    public List<PedidoDTO> obtenerPedidosPorCliente(String clienteId) {
+        List<PedidoEntidad> pedidosEntidad = pedidoDAO.consultarPedidosPorCliente(clienteId);
+        List<PedidoDTO> pedidosDTO = new ArrayList<>();
+        for (PedidoEntidad pedidoEntidad : pedidosEntidad) {
+            pedidosDTO.add(entityToDto(pedidoEntidad));
+        }
+        return pedidosDTO;
+    }
 
+    public void agregarPedido(PedidoDTO pedidoDTO) {
+        PedidoEntidad pedidoEntidad = dtoToEntity(pedidoDTO);
+        pedidoDAO.agregarPedido(pedidoEntidad);
+    }
+
+    private PedidoEntidad dtoToEntity(PedidoDTO dto) {
+        PedidoEntidad entidad = new PedidoEntidad();
+        entidad.setColoresDecorativos(dto.getColoresDecorativos());
+        entidad.setTotalPersonas(dto.getTotalPersonas());
+        entidad.setPrecioTotal(dto.getPrecioTotal());
+        entidad.setFechaPedido(dto.getFechaPedido());
+        entidad.setRellenoSabor(dto.getRellenoSabor());
+        entidad.setSaborPan(dto.getSaborPan());
+        entidad.setTotalVelas(dto.getTotalVelas());
+        entidad.setObleaDecorativa(dto.isObleaDecorativa());
+        entidad.setPedidoid(dto.getPedidoid());
+        entidad.setClienteId(dto.getClienteId());
+        return entidad;
+    }
+
+    private PedidoDTO entityToDto(PedidoEntidad entidad) {
+        PedidoDTO dto = new PedidoDTO();
+        dto.setColoresDecorativos(entidad.getColoresDecorativos());
+        dto.setTotalPersonas(entidad.getTotalPersonas());
+        dto.setPrecioTotal(entidad.getPrecioTotal());
+        dto.setFechaPedido(entidad.getFechaPedido());
+        dto.setRellenoSabor(entidad.getRellenoSabor());
+        dto.setSaborPan(entidad.getSaborPan());
+        dto.setTotalVelas(entidad.getTotalVelas());
+        dto.setObleaDecorativa(entidad.isObleaDecorativa());
+        dto.setPedidoid(entidad.getPedidoid());
+        dto.setClienteId(entidad.getClienteId());
+        return dto;
+    }
 }

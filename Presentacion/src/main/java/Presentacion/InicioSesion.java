@@ -21,15 +21,17 @@ public class InicioSesion extends javax.swing.JFrame {
     private IPedido pedido;
     private IInicioSesion inicioSesion;
     //private IConsultaPedido consulta;
-    
 
     public InicioSesion(IInicioSesion inicioSesion, IPedido pedido) {
+        if (inicioSesion == null) {
+            throw new IllegalArgumentException("Inicio de sesion no puede ser null");
+        }
         this.inicioSesion = inicioSesion;
         this.pedido = pedido;
         initComponents();
         setSize(430, 560);
         setResizable(false);
-         this.setLocationRelativeTo(this);
+        this.setLocationRelativeTo(this);
     }
 
     public void setInicioSesion(IInicioSesion inicioSesion) {
@@ -114,19 +116,18 @@ public class InicioSesion extends javax.swing.JFrame {
 
         String nombre = txtNombre.getText();
         String contrasena = new String(txtContrasena.getPassword());
-
         if (inicioSesion.validarUsuario(nombre, contrasena, "Empleado")) {
             JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso como Empleado.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            // Aquí puedes redirigir a la siguiente ventana o funcionalidad
-            RealizarPedido realizar = new RealizarPedido(pedido, null);
-            realizar.setVisible(true); // Abre la ventana RealizarPedido
-            this.dispose(); // Cierra la ventana de inicio de sesión actual
+            // Redirige al empleado a la ventana RealizarPedido
+            RealizarPedido realizar = new RealizarPedido(pedido);
+            realizar.setVisible(true);
+            this.dispose();
         } else if (inicioSesion.validarUsuario(nombre, contrasena, "Gerente")) {
             JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso como Gerente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            // Aquí puedes redirigir a la siguiente ventana o funcionalidad
-            RealizarPedido realizar = new RealizarPedido(pedido,/*consulta,*/ null);
-            realizar.setVisible(true); // Abre la ventana RealizarPedido
-            this.dispose(); // Cierra la ventana de inicio de sesión actual
+            // Redirige al gerente a la ventana RealizarPedido (con funcionalidad adicional)
+            Menu menu = new Menu();
+            menu.setVisible(true);
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Credenciales incorrectas.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -146,10 +147,9 @@ public class InicioSesion extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-       
-           PedidoFachada pedidoFachada = new PedidoFachada();
+        PedidoFachada pedidoFachada = new PedidoFachada();
         UsuarioFachada usuarioFachada = new UsuarioFachada();
-         java.awt.EventQueue.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new InicioSesion(usuarioFachada, pedidoFachada).setVisible(true);
             }

@@ -6,11 +6,10 @@ package ControlRealizarPedido;
 
 import com.mycompany.dto.PedidoDTO;
 import com.mycompany.pasteleriabo.PedidoBO;
-import com.mycompany.pasteleriabo.PedidoBO;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,7 +27,7 @@ public class ControlRealizarPedido {
     public boolean ValidarFechaMax5(Date fecha) { // disponibilidad de la fecha
       int numeroDePedidos = obtenerNumeroDePedidosEnFecha(fecha);
         System.out.println("Número de pedidos en la fecha " + fecha + ": " + numeroDePedidos);
-        return numeroDePedidos <= 2; // Permitir solo 2 pedidos por fecha
+        return numeroDePedidos <= 1; // Permitir solo 2 pedidos por fecha
     }
 
    
@@ -41,7 +40,6 @@ public class ControlRealizarPedido {
     calendar.add(Calendar.MONTH, 6);
     Date fechaMaxima = calendar.getTime();
     
-    // Ajustar las fechas para ignorar la parte de tiempo (hora, minuto, segundo)
     calendar.setTime(fecha);
     calendar.set(Calendar.HOUR_OF_DAY, 0);
     calendar.set(Calendar.MINUTE, 0);
@@ -79,7 +77,7 @@ public class ControlRealizarPedido {
         String fechaStr = sdf.format(fecha);
 
         for (PedidoDTO pedido : realizarPedido.obtenerPedidos()) {
-            String pedidoFechaStr = sdf.format(pedido.getFecha());
+            String pedidoFechaStr = sdf.format(pedido.getFechaPedido());
             if (pedidoFechaStr.equals(fechaStr)) {
                 count++;
             }
@@ -88,16 +86,49 @@ public class ControlRealizarPedido {
     }
    
     public void agregarPedido(PedidoDTO pedido) {
-        if (ValidarFechaMax5(pedido.getFecha())) {
+        if (ValidarFechaMax5(pedido.getFechaPedido())) {
             realizarPedido.agregarPedido(pedido);
-            System.out.println("Pedido agregado para la fecha: " + pedido.getFecha());
+            System.out.println("Pedido agregado para la fecha: " + pedido.getFechaPedido());
         } else {
             JOptionPane.showMessageDialog(null, "No se pueden agregar más de 2 pedidos en la misma fecha.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-        public double calcularPrecio(PedidoDTO pedido) {
-        return realizarPedido.calcularPrecio(pedido);
-        }
+  public void calcularPrecio(PedidoDTO pedidoDTO) {
+    // Constantes de precios
+    final int PRECIO_VELA = 5;
+    final int PRECIO_POR_PERSONA = 10;
+    final int PRECIO_OBLEA_DECORATIVA = 20;
+    final int PRECIO_RELLENO_PAN = 25;
+    final int PRECIO_SABOR_PAN = 200;
+    final int FACTOR_MANO_DE_OBRA = 2;
+
+    int precio = 0;
+
+    // Calcular el costo de las velas
+    precio += pedidoDTO.getTotalVelas() * PRECIO_VELA;
+
+    // Calcular el costo por persona
+    precio += pedidoDTO.getTotalPersonas() * PRECIO_POR_PERSONA;
+
+    // Añadir costo de la oblea decorativa si aplica
+    if (pedidoDTO.isObleaDecorativa()) {
+        precio += PRECIO_OBLEA_DECORATIVA;
+    }
+
+    // Añadir costo del relleno del pan
+    precio += PRECIO_RELLENO_PAN;
+
+    // Añadir costo del sabor del pan
+    precio += PRECIO_SABOR_PAN;
+
+    // Multiplicar por el factor de mano de obra
+    precio *= FACTOR_MANO_DE_OBRA;
+
+    // Establecer el precio total en el PedidoDTO
+    pedidoDTO.setPrecioTotal(precio);
+}
+
+ 
     
 }
 

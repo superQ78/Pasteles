@@ -5,6 +5,9 @@
 package FachadaConsultarPedido;
 
 import ControlConsultarPedido.ControlConsultarPedido;
+import Entidades.PedidoEntidad;
+import InterfaceConsultarPedido.IConsultaPedido;
+import com.mycompany.dto.ClienteDTO;
 import com.mycompany.dto.PedidoDTO;
 import java.util.List;
 
@@ -12,14 +15,23 @@ import java.util.List;
  *
  * @author Valeria
  */
-public class FachadaConsulta {
+public class FachadaConsulta implements IConsultaPedido {
     private ControlConsultarPedido controlConsultarPedido;
 
     public FachadaConsulta() {
         this.controlConsultarPedido = new ControlConsultarPedido();
     }
-
-   public List<PedidoDTO> obtenerPedidos() {
+@Override
+    public List<PedidoEntidad> obtenerPedidos() {
         return controlConsultarPedido.obtenerPedidos();
     }
+@Override
+    public List<PedidoDTO> obtenerPedidosPorCliente(String clienteId) {
+        return controlConsultarPedido.obtenerPedidosPorCliente(clienteId);
+    }
+     @Override
+    public ClienteDTO obtenerClientePorPedidoId(String Clienteid) {
+        return controlConsultarPedido.obtenerClientePorPedidoId(Clienteid);
+    }
+   
 }

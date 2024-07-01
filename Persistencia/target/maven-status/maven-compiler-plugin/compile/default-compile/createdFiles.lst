@@ -1,4 +1,9 @@
 com\mycompany\persistencia\PedidoDAO.class
+Entidades\FacturaEntidad.class
+com\mycompany\persistencia\DatabaseConexion.class
+Entidades\ClienteEntidad.class
+com\mycompany\persistencia\ClienteDAO.class
 com\mycompany\persistencia\UsuarioDAO.class
 Entidades\PedidoEntidad.class
+com\mycompany\persistencia\FacturaDAO.class
 Entidades\UsuarioEntidad.class
