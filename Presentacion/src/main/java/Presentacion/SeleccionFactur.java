@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Presentacion;
 
 import FachadaConsultarPedido.FachadaConsulta;
@@ -22,6 +18,7 @@ public class SeleccionFactur extends javax.swing.JFrame {
 
     /**
      * Creates new form SeleccionFactur
+     *
      * @param celular
      */
     public SeleccionFactur(String celular) {
@@ -31,12 +28,10 @@ public class SeleccionFactur extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
-    
-
     private void llenarTablaConPedidos(String celular) {
         List<PedidoDTO> pedidos = IconsultaPedido.obtenerPedidosPorCliente(celular);
         System.out.println(pedidos.toString());
-        String[] columnNames = {"pedido_id", "Total Personas", "Sabor Pan", "Oblea Decorativa", "Colores Decorativos", "Relleno Sabor", "Total Velas", "Fecha Pedido", "Precio Total"};
+        String[] columnNames = {"Pedido ID", "Total Personas", "Sabor Pan", "Oblea Decorativa", "Colores Decorativos", "Relleno Sabor", "Total Velas", "Fecha Pedido", "Precio Total"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
         for (PedidoDTO pedido : pedidos) {
@@ -113,7 +108,7 @@ public class SeleccionFactur extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 360, 100, 40));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 340, 100, 40));
 
         jButton2.setText("Volver");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +116,7 @@ public class SeleccionFactur extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 360, 100, 40));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 340, 100, 40));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/sele.png"))); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, -1, -1));
@@ -156,9 +151,9 @@ public class SeleccionFactur extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-Cliente is= new Cliente();
-is.setVisible(true);
-this.dispose();
+        Cliente is = new Cliente();
+        is.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

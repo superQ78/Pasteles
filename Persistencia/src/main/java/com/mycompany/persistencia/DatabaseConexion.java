@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class DatabaseConexion {
   private static final String URL = "jdbc:mysql://localhost:3306/Pasteleria";
     private static final String USER = "root"; // Cambia esto si tu usuario es diferente
-    private static final String PASSWORD = "Chicharo7878"; // Cambia esto por tu contraseña
+    private static final String PASSWORD = "37391Encinas"; // Cambia esto por tu contraseña
 
     public static Connection getConnection() {
         Connection connection = null;

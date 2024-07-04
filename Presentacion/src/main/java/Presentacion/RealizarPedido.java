@@ -75,6 +75,7 @@ public class RealizarPedido extends javax.swing.JFrame {
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, -1, 30));
 
         btnConsultarPedidos.setBackground(new java.awt.Color(102, 0, 102));
+        btnConsultarPedidos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnConsultarPedidos.setForeground(new java.awt.Color(255, 255, 255));
         btnConsultarPedidos.setText("Seleccionar");
         btnConsultarPedidos.addActionListener(new java.awt.event.ActionListener() {

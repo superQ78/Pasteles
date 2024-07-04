@@ -256,7 +256,7 @@ public class IngresaPedido extends javax.swing.JFrame {
             pedidoDTO = new PedidoDTO();
             pedidoDTO.setEstado("Pendiente");
         }
-
+       
         pedidoDTO.setClienteId(txtTelefono.getText());
         pedidoDTO.setColoresDecorativos(txtColores.getText());
         pedidoDTO.setFechaPedido(fecha);

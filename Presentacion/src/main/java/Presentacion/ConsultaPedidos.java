@@ -22,7 +22,7 @@ public class ConsultaPedidos extends javax.swing.JFrame {
     private IInicioSesion inicioSesion;
 
     public ConsultaPedidos(IPedido pedido, PedidoDTO pedidoDTO,IInicioSesion inicioSesion) {
-        this.consulta = new FachadaConsulta(); // Inicialización de consulta
+        this.consulta = new FachadaConsulta(); 
         this.modificar = new ModificarFachada();
         this.consulta = consulta;
         this.pedido = pedido;
@@ -269,13 +269,16 @@ public class ConsultaPedidos extends javax.swing.JFrame {
         });
         obleaLabel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 200, -1, 30));
 
-        jButton2.setText("MENU");
+        jButton2.setBackground(new java.awt.Color(153, 0, 153));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Menú");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        obleaLabel.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, -1));
+        obleaLabel.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, 20));
 
         getContentPane().add(obleaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 700));
 

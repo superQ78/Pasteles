@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Presentacion;
 
 import FachadaSAT.FachadaSAT;
@@ -175,28 +172,28 @@ public class FacturaSAT extends javax.swing.JFrame {
         jLabelApellido.setText("apellido");
         jPanel1.add(jLabelApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, -1, -1));
 
-        jLabelCorreo.setText("jLabel5");
+        jLabelCorreo.setText("Correo");
         jPanel1.add(jLabelCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 330, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setText("Correo Electronico:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, -1, -1));
 
-        jLabelRFC.setText("jLabel9");
+        jLabelRFC.setText("RFC");
         jPanel1.add(jLabelRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel9.setText("RFC:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
 
-        jLabelUsoFiscal.setText("jLabel15");
+        jLabelUsoFiscal.setText("UsoFiscal");
         jPanel1.add(jLabelUsoFiscal, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, -1, -1));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel15.setText("UsoFiscal:");
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
 
-        jLabelCURP.setText("jLabel12");
+        jLabelCURP.setText("CURP");
         jPanel1.add(jLabelCURP, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
