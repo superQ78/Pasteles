@@ -33,14 +33,13 @@ public class PedidoBO {
 
     public PedidoDTO obtenerPedidoPorId(int pedidoid) {
         PedidoEntidad pedidoEntidad = pedidoDAO.obtenerPedidoPorId(pedidoid);
-        PedidoDTO pedido=entityToDto(pedidoEntidad);
+        PedidoDTO pedido = entityToDto(pedidoEntidad);
         if (pedidoEntidad != null) {
             return pedido;
         }
         return null;
     }
-   
-    
+
     public List<PedidoDTO> obtenerPedidosPorCliente(String clienteId) {
         List<PedidoEntidad> pedidosEntidad = pedidoDAO.consultarPedidosPorCliente(clienteId);
         List<PedidoDTO> pedidosDTO = new ArrayList<>();
@@ -51,6 +50,7 @@ public class PedidoBO {
     }
 
     public void agregarPedido(PedidoDTO pedidoDTO) {
+        pedidoDTO.setEstado("Pendiente");
         PedidoEntidad pedidoEntidad = dtoToEntity(pedidoDTO);
         pedidoDAO.agregarPedido(pedidoEntidad);
     }
@@ -67,10 +67,11 @@ public class PedidoBO {
         entidad.setObleaDecorativa(dto.isObleaDecorativa());
         entidad.setPedidoid(dto.getPedidoid());
         entidad.setClienteId(dto.getClienteId());
+        entidad.setEstado(dto.getEstado());
         return entidad;
     }
 
-    private PedidoDTO entityToDto(PedidoEntidad entidad) {
+    public PedidoDTO entityToDto(PedidoEntidad entidad) {
         PedidoDTO dto = new PedidoDTO();
         dto.setColoresDecorativos(entidad.getColoresDecorativos());
         dto.setTotalPersonas(entidad.getTotalPersonas());
@@ -82,6 +83,7 @@ public class PedidoBO {
         dto.setObleaDecorativa(entidad.isObleaDecorativa());
         dto.setPedidoid(entidad.getPedidoid());
         dto.setClienteId(entidad.getClienteId());
+        dto.setEstado(entidad.getEstado());
         return dto;
     }
 }

@@ -25,7 +25,7 @@ this.consultaBO = new ConsultaBO();
         this.pedidoBO = new PedidoBO(); 
     }
 
-    public List<PedidoEntidad> obtenerPedidos() {
+    public List<PedidoDTO> obtenerPedidos() {
         return consultaBO.obtenerPedidos();
     }
 
@@ -37,5 +37,15 @@ this.consultaBO = new ConsultaBO();
     public ClienteDTO obtenerClientePorPedidoId(String Clienteid) {
         return consultaBO.obtenerClientePorPedidoId(Clienteid);
     }
-     
+     public List<PedidoDTO> obtenerPedidosDelDia() {
+        return consultaBO.obtenerPedidosDelDia();
+    }
+    
+    public PedidoDTO obtenerPedidoPorIds(int pedidoid) {
+        return consultaBO.obtenerPedidoPorIds(pedidoid);
+    }
+
+    public List<PedidoDTO> consultarPedidosPorFiltro(String telefono, Date fecha, String estado) {
+        return consultaBO.consultarPedidosPorFiltro(telefono, fecha, estado);
+    }
 }

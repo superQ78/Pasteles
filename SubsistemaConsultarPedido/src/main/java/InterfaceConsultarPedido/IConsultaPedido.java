@@ -4,9 +4,9 @@
  */
 package InterfaceConsultarPedido;
 
-import Entidades.PedidoEntidad;
 import com.mycompany.dto.ClienteDTO;
 import com.mycompany.dto.PedidoDTO;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,10 +15,19 @@ import java.util.List;
  */
 public interface IConsultaPedido {
     
-    List<PedidoEntidad> obtenerPedidos();
+    List<PedidoDTO> obtenerPedidos();
     
       List<PedidoDTO> obtenerPedidosPorCliente(String clienteId);
       ClienteDTO obtenerClientePorPedidoId(String Clienteid);
       
-      
+    List<PedidoDTO> obtenerPedidosDelDia();
+    
+    /**
+     *
+     * @param pedidoid
+     * @return
+     */
+    PedidoDTO obtenerPedidoPorIds(int pedidoid);
+    
+    public List<PedidoDTO> consultarPedidosPorFiltro(String telefono, Date fecha, String estado);
 }

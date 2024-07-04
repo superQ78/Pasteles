@@ -22,6 +22,7 @@ public class PedidoEntidad {
     private Date fechaPedido;
     private int precioTotal;
     private String clienteId;
+    private String estado;
     
 
     // Constructor vacío
@@ -32,6 +33,15 @@ public class PedidoEntidad {
         this.pedidoid = pedidoid;
         this.precioTotal = precioTotal;
     }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
 
     // Getters y setters
 

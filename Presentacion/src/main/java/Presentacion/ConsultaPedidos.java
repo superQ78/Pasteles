@@ -1,10 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Presentacion;
 
+import FachadaConsultarPedido.FachadaConsulta;
+import FachadaModificar.ModificarFachada;
+import InterfaceConsultarPedido.IConsultaPedido;
 import InterfaceInicioSesion.IInicioSesion;
+import InterfaceRealizarPedido.IModificarPedido;
 import InterfaceRealizarPedido.IPedido;
 import com.mycompany.dto.PedidoDTO;
 import javax.swing.JOptionPane;
@@ -15,41 +15,53 @@ import javax.swing.JOptionPane;
  */
 public class ConsultaPedidos extends javax.swing.JFrame {
 
-   private PedidoDTO pedidoDTO;
+    private IModificarPedido modificar;
+    private IConsultaPedido consulta;
+    private PedidoDTO pedidoDTO;
+    private IPedido pedido;
     private IInicioSesion inicioSesion;
-private IPedido pedido;
-    /**
-     * Creates new form ConsultaPedido
-     *
-     *
-     * @param pedido
-     * @param pedidoDTO
-     * @param inicioSesion
-     */
-    public ConsultaPedidos(IPedido pedido, PedidoDTO pedidoDTO, IInicioSesion inicioSesion) {
-       
 
-        this.inicioSesion = inicioSesion;
+    public ConsultaPedidos(IPedido pedido, PedidoDTO pedidoDTO,IInicioSesion inicioSesion) {
+        this.consulta = new FachadaConsulta(); // Inicialización de consulta
+        this.modificar = new ModificarFachada();
+        this.consulta = consulta;
+        this.pedido = pedido;
+        this.inicioSesion= inicioSesion;
+        this.pedidoDTO = pedidoDTO;
         initComponents();
-        setSize(430, 600);
+        setSize(570, 650);
         setResizable(false);
         this.setLocationRelativeTo(this);
         llenarDetallesPedido(pedidoDTO);
-
     }
 
-    private void llenarDetallesPedido(PedidoDTO pedidoDTO) { 
+    /**
+     * Este método llena los campos con los detalles del pedido al realizarlo.
+     *
+     * @param pedidoDTO El objeto PedidoDTO con los detalles del pedido a
+     * mostrar.
+     */
+    private void llenarDetallesPedido(PedidoDTO pedidoDTO) {
+        idLabel.setText(String.valueOf(pedidoDTO.getPedidoid()));
+        telefonoLabel.setText(pedidoDTO.getClienteId());
+        PersonasLabel.setText(String.valueOf(pedidoDTO.getTotalPersonas()));
+        coloresLabel.setText(pedidoDTO.getColoresDecorativos());
+        ObleaLabel.setText(pedidoDTO.isObleaDecorativa() ? (pedidoDTO.isObleaDecorativa() ? "Sí" : "No") : "");
+        rellenoLabel.setText(pedidoDTO.getRellenoSabor());
+        panLabel.setText(pedidoDTO.getSaborPan());
+        velasLabel.setText(String.valueOf(pedidoDTO.getTotalVelas()));
+        pedidoDTO.setEstado("Pendiente");
 
-    // Actualización de etiquetas de UI
-    PersonasLabel.setText(String.valueOf(pedidoDTO.getTotalPersonas()));
-    coloresLabel.setText(pedidoDTO.getColoresDecorativos());
-    ObleaLabel.setText(pedidoDTO.isObleaDecorativa() ? "Sí" : "No");
-    rellenoLabel.setText(pedidoDTO.getRellenoSabor());
-    panLabel.setText(pedidoDTO.getSaborPan());
-    velasLabel.setText(String.valueOf(pedidoDTO.getTotalVelas()));
-    fechaLabel.setText(pedidoDTO.getFechaPedido().toString());
-    precioLabel.setText("Precio Total: $" + pedidoDTO.getPrecioTotal());
-}
+        // Manejo de fecha para evitar NullPointerException si la fecha es null
+        if (pedidoDTO.getFechaPedido() != null) {
+            fechaLabel.setText(pedidoDTO.getFechaPedido().toString());
+        } else {
+            fechaLabel.setText("Fecha no disponible");
+        }
+        // Formateo del precio total
+        precioLabel.setText("Precio Total: $" + pedidoDTO.getPrecioTotal());
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -67,8 +79,8 @@ private IPedido pedido;
         coloresLabel = new javax.swing.JLabel();
         rellenoLabel = new javax.swing.JLabel();
         velasLabel = new javax.swing.JLabel();
-        fechaLabel = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        precioLabel = new javax.swing.JLabel();
+        botonEntregado = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -77,12 +89,24 @@ private IPedido pedido;
         jLabel7 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        precioLabel = new javax.swing.JLabel();
-        jButtonTramitarFactura = new javax.swing.JButton();
+        botonRegresar = new javax.swing.JButton();
+        botonImprimir = new javax.swing.JButton();
+        botonCancelar = new javax.swing.JButton();
+        botonModificar = new javax.swing.JButton();
+        precioLabel1 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        idLabel = new javax.swing.JLabel();
+        fechaLabel = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        telefonoLabel = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Detalles del pedido");
+        setPreferredSize(new java.awt.Dimension(570, 660));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         obleaLabel.setBackground(new java.awt.Color(247, 239, 255));
@@ -91,110 +115,224 @@ private IPedido pedido;
 
         PersonasLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         PersonasLabel.setText("Personas");
-        obleaLabel.add(PersonasLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 150, 30));
+        obleaLabel.add(PersonasLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 150, 30));
 
         panLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         panLabel.setText("Pan");
-        obleaLabel.add(panLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 150, 150, 30));
+        obleaLabel.add(panLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, 150, 30));
 
         ObleaLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         ObleaLabel.setText("Oblea");
-        obleaLabel.add(ObleaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 150, 30));
+        obleaLabel.add(ObleaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 150, 30));
 
         coloresLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         coloresLabel.setText("Colores");
-        obleaLabel.add(coloresLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 230, 150, 30));
+        obleaLabel.add(coloresLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, 150, 30));
 
         rellenoLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         rellenoLabel.setText("Relleno");
-        obleaLabel.add(rellenoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, 150, 30));
+        obleaLabel.add(rellenoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, 150, 30));
 
         velasLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         velasLabel.setText("Velas");
-        obleaLabel.add(velasLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 310, 150, 30));
+        obleaLabel.add(velasLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 400, 150, 30));
+
+        precioLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        precioLabel.setText("Total");
+        obleaLabel.add(precioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 510, 220, 30));
+
+        botonEntregado.setBackground(new java.awt.Color(153, 0, 153));
+        botonEntregado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        botonEntregado.setForeground(new java.awt.Color(255, 255, 255));
+        botonEntregado.setText("Entregado");
+        botonEntregado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEntregadoActionPerformed(evt);
+            }
+        });
+        obleaLabel.add(botonEntregado, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 550, 100, 30));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setText("Total de personas:");
+        obleaLabel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, 30));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setText("Sabor de pan:");
+        obleaLabel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, -1, 30));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Oblea decorativa:");
+        obleaLabel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, -1, 30));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setText("Colores decorativos:");
+        obleaLabel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, -1, 30));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setText("Sabor de relleno:");
+        obleaLabel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, -1, 30));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel7.setText("Total de velas:");
+        obleaLabel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, -1, 30));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setText("Fecha:");
+        obleaLabel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 440, -1, 30));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel8.setText("Detalles del pedido");
+        obleaLabel.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, -1, 40));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        obleaLabel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, -1, 30));
+
+        botonRegresar.setBackground(new java.awt.Color(153, 0, 153));
+        botonRegresar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        botonRegresar.setForeground(new java.awt.Color(255, 255, 255));
+        botonRegresar.setText("Volver");
+        botonRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegresarActionPerformed(evt);
+            }
+        });
+        obleaLabel.add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 20));
+
+        botonImprimir.setBackground(new java.awt.Color(153, 0, 153));
+        botonImprimir.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        botonImprimir.setForeground(new java.awt.Color(255, 255, 255));
+        botonImprimir.setText("Imprimir");
+        botonImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonImprimirActionPerformed(evt);
+            }
+        });
+        obleaLabel.add(botonImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, 120, 30));
+
+        botonCancelar.setBackground(new java.awt.Color(153, 0, 153));
+        botonCancelar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        botonCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        botonCancelar.setText("Cancelar");
+        botonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarActionPerformed(evt);
+            }
+        });
+        obleaLabel.add(botonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 550, 100, 30));
+
+        botonModificar.setBackground(new java.awt.Color(153, 0, 153));
+        botonModificar.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        botonModificar.setForeground(new java.awt.Color(255, 255, 255));
+        botonModificar.setText("Modificar");
+        botonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModificarActionPerformed(evt);
+            }
+        });
+        obleaLabel.add(botonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 110, 120, 30));
+
+        precioLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        obleaLabel.add(precioLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, -1, 30));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel10.setText("ID:");
+        obleaLabel.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, 30));
+
+        idLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        idLabel.setText("ID");
+        obleaLabel.add(idLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 150, 30));
 
         fechaLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         fechaLabel.setText("Fecha");
-        obleaLabel.add(fechaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 350, 150, 30));
+        obleaLabel.add(fechaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 440, 150, 30));
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel11.setText("Num. Teléfono");
+        obleaLabel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, 30));
+
+        telefonoLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        telefonoLabel.setText("Teléfono");
+        obleaLabel.add(telefonoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, 150, 30));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        obleaLabel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 370, 410));
 
         jButton1.setBackground(new java.awt.Color(153, 0, 153));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Menú");
+        jButton1.setText("Tramitar Factura");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        obleaLabel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 460, 130, 30));
+        obleaLabel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 200, -1, 30));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setText("Total de personas:");
-        obleaLabel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, 30));
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel6.setText("Sabor de pan:");
-        obleaLabel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, 30));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Oblea decorativa:");
-        obleaLabel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, 30));
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel3.setText("Colores decorativos:");
-        obleaLabel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, 30));
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setText("Sabor de relleno:");
-        obleaLabel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, -1, 30));
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel7.setText("Total de velas:");
-        obleaLabel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, -1, 30));
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel5.setText("Agregar fecha:");
-        obleaLabel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, -1, 30));
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(102, 0, 102));
-        jLabel8.setText("Detalles del pedido");
-        obleaLabel.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        obleaLabel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 380, 320));
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        obleaLabel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, -1, -1));
-
-        precioLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        precioLabel.setText("Total");
-        obleaLabel.add(precioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, -1, -1));
-
-        jButtonTramitarFactura.setText("Tramitar Factura");
-        jButtonTramitarFactura.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("MENU");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTramitarFacturaActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
-        obleaLabel.add(jButtonTramitarFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 510, -1, -1));
+        obleaLabel.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, -1));
 
-        getContentPane().add(obleaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 600));
+        getContentPane().add(obleaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 700));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void botonEntregadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEntregadoActionPerformed
+        try {
+            if (pedidoDTO != null) {
+                modificar.actualizarEstadoPedido(pedidoDTO, "Entregado");
+                JOptionPane.showMessageDialog(this, "El pedido ha sido entregado correctamente.");
+            } else {
+                JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún pedido.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al marcar el pedido como entregado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_botonEntregadoActionPerformed
 
-        RealizarPedido regresar = new RealizarPedido(pedido); // Asegúrate de tener la clase ConsultaPedidos implementada
+    private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
+        ConsultarPorFiltro regresar = new ConsultarPorFiltro(); // Asegúrate de tener la clase ConsultaPedidos implementada
         regresar.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_botonRegresarActionPerformed
 
-    private void jButtonTramitarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTramitarFacturaActionPerformed
+    private void botonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonImprimirActionPerformed
+        ImprimirPedido impresion = new ImprimirPedido(pedidoDTO);
+        impresion.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_botonImprimirActionPerformed
 
-        int option = JOptionPane.showConfirmDialog(this,
+    private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
+        try {
+            if (pedidoDTO != null) {
+                modificar.actualizarEstadoPedido(pedidoDTO, "Cancelado");
+                JOptionPane.showMessageDialog(this, "El pedido ha sido cancelado correctamente.");
+            } else {
+                JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún pedido.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cancelar el pedido: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_botonCancelarActionPerformed
+
+    private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
+        // Crear una nueva instancia de IngresaPedido
+        IngresaPedido ingresaPedido = new IngresaPedido();
+        // Configurar IngresaPedido con los detalles del pedido seleccionado
+        ingresaPedido.cargarPedidoParaModificar(pedidoDTO);
+        ingresaPedido.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_botonModificarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+int option = JOptionPane.showConfirmDialog(this,
                 "Solo gerencia puede tramitar facturas, ¿desea iniciar sesión como gerente?",
                 "Tramitar Factura",
                 JOptionPane.YES_NO_OPTION);
@@ -204,19 +342,32 @@ private IPedido pedido;
             InicioSesion ini = new InicioSesion(inicioSesion, pedido);
             ini.setVisible(true);
             this.dispose();
-        }
+        }    }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+RealizarPedido menu= new RealizarPedido(pedido);
+menu.setVisible(true);
+this.dispose();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-    }//GEN-LAST:event_jButtonTramitarFacturaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ObleaLabel;
     private javax.swing.JLabel PersonasLabel;
+    private javax.swing.JButton botonCancelar;
+    private javax.swing.JButton botonEntregado;
+    private javax.swing.JButton botonImprimir;
+    private javax.swing.JButton botonModificar;
+    private javax.swing.JButton botonRegresar;
     private javax.swing.JLabel coloresLabel;
     private javax.swing.JLabel fechaLabel;
+    private javax.swing.JLabel idLabel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButtonTramitarFactura;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -229,7 +380,9 @@ private IPedido pedido;
     private javax.swing.JPanel obleaLabel;
     private javax.swing.JLabel panLabel;
     private javax.swing.JLabel precioLabel;
+    private javax.swing.JLabel precioLabel1;
     private javax.swing.JLabel rellenoLabel;
+    private javax.swing.JLabel telefonoLabel;
     private javax.swing.JLabel velasLabel;
     // End of variables declaration//GEN-END:variables
 }

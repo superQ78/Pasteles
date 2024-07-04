@@ -9,6 +9,7 @@ import Entidades.PedidoEntidad;
 import InterfaceConsultarPedido.IConsultaPedido;
 import com.mycompany.dto.ClienteDTO;
 import com.mycompany.dto.PedidoDTO;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,7 +23,7 @@ public class FachadaConsulta implements IConsultaPedido {
         this.controlConsultarPedido = new ControlConsultarPedido();
     }
 @Override
-    public List<PedidoEntidad> obtenerPedidos() {
+    public List<PedidoDTO> obtenerPedidos() {
         return controlConsultarPedido.obtenerPedidos();
     }
 @Override
@@ -32,6 +33,21 @@ public class FachadaConsulta implements IConsultaPedido {
      @Override
     public ClienteDTO obtenerClientePorPedidoId(String Clienteid) {
         return controlConsultarPedido.obtenerClientePorPedidoId(Clienteid);
+    }
+
+    @Override
+    public List<PedidoDTO> obtenerPedidosDelDia() {
+        return controlConsultarPedido.obtenerPedidosDelDia();
+    }
+
+    @Override
+    public PedidoDTO obtenerPedidoPorIds(int pedidoid) {
+        return controlConsultarPedido.obtenerPedidoPorIds(pedidoid);
+    }
+    
+    @Override
+    public List<PedidoDTO> consultarPedidosPorFiltro(String telefono, Date fecha, String estado) {
+        return controlConsultarPedido.consultarPedidosPorFiltro(telefono, fecha, estado);
     }
    
 }

@@ -4,7 +4,6 @@
  */
 package com.mycompany.dto;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -23,6 +22,7 @@ public class PedidoDTO {
     private Date fechaPedido;
     private int precioTotal;
     private String clienteId;
+    private String estado;
 
     public PedidoDTO(){
         
@@ -31,6 +31,14 @@ public class PedidoDTO {
     public PedidoDTO(int pedidoid, int precioTotal) {
         this.pedidoid = pedidoid;
         this.precioTotal = precioTotal;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
          

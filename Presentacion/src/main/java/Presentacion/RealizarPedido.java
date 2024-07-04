@@ -31,8 +31,7 @@ public class RealizarPedido extends javax.swing.JFrame {
         this.setLocationRelativeTo(this);
     }
 
-   public  RealizarPedido() {
-    }
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -114,7 +113,7 @@ public class RealizarPedido extends javax.swing.JFrame {
 
     private void btnConsultarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarPedidosActionPerformed
 
-        ConsultaPedidos consultaPedidos = new ConsultaPedidos( pedido, pedidoDTO, inicioSesion);
+        ConsultarPorFiltro consultaPedidos = new ConsultarPorFiltro();
         consultaPedidos.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnConsultarPedidosActionPerformed

@@ -23,10 +23,7 @@ public class InicioSesion extends javax.swing.JFrame {
     //private IConsultaPedido consulta;
 
     public InicioSesion(IInicioSesion inicioSesion, IPedido pedido) {
-        if (inicioSesion == null) {
-            throw new IllegalArgumentException("Inicio de sesion no puede ser null");
-        }
-        this.inicioSesion = inicioSesion;
+        this.inicioSesion = new UsuarioFachada();
         this.pedido = pedido;
         initComponents();
         setSize(430, 560);
@@ -149,6 +146,7 @@ public class InicioSesion extends javax.swing.JFrame {
     public static void main(String args[]) {
         PedidoFachada pedidoFachada = new PedidoFachada();
         UsuarioFachada usuarioFachada = new UsuarioFachada();
+        //IInicioSesion usuarioFachada = new UsuarioFachada();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new InicioSesion(usuarioFachada, pedidoFachada).setVisible(true);
