@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Presentacion;
 
 import FachadaConsultarPedido.FachadaConsulta;
@@ -11,7 +8,6 @@ import InterfaceFinanza.IFinanza;
 import com.mycompany.dto.ClienteDTO;
 import com.mycompany.dto.FacturaDTO;
 import com.mycompany.pasteleriabo.SATBO;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 

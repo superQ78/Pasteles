@@ -18,45 +18,112 @@
             <artifactId>AbsoluteLayout</artifactId>
             <version>RELEASE140</version>
         </dependency>
-        <dependency>
-            <groupId>com.mycompany.subsistemainiciosesion</groupId>
-            <artifactId>SubsistemaInicioSesion</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
                 <dependency>
                         <groupId>com.toedter</groupId>
                         <artifactId>jcalendar</artifactId>
                         <version>1.4</version>
                 </dependency>
                 <dependency>
+                        <groupId>org.junit.jupiter</groupId>
+                        <artifactId>junit-jupiter-api</artifactId>
+                        <version>5.6.0</version>
+                        <type>jar</type>
+                        <exclusions>
+                                <exclusion>
+                                        <groupId>org.apiguardian</groupId>
+                                        <artifactId>apiguardian-api</artifactId>
+                                </exclusion>
+                        </exclusions>
+                </dependency>
+                <dependency>
                         <groupId>com.mycompany.realizarpedido</groupId>
                         <artifactId>RealizarPedido</artifactId>
                         <version>1.0-SNAPSHOT</version>
+                        <exclusions>
+                                <exclusion>
+                                        <groupId>com.mycompany.dto</groupId>
+                                        <artifactId>DTO</artifactId>
+                                </exclusion>
+                                <exclusion>
+                                        <groupId>com.mycompany.pasteleriabo</groupId>
+                                        <artifactId>PasteleriaBO</artifactId>
+                                </exclusion>
+                        </exclusions>
                 </dependency>
                 <dependency>
                         <groupId>com.mycompany</groupId>
                         <artifactId>SubsistemaConsultarPedido</artifactId>
                         <version>1.0-SNAPSHOT</version>
+                        <exclusions>
+                                <exclusion>
+                                        <groupId>com.mycompany.dto</groupId>
+                                        <artifactId>DTO</artifactId>
+                                </exclusion>
+                                <exclusion>
+                                        <groupId>com.mycompany.pasteleriabo</groupId>
+                                        <artifactId>PasteleriaBO</artifactId>
+                                </exclusion>
+                        </exclusions>
                 </dependency>
                 <dependency>
-                        <groupId>com.mycompany.persistencia</groupId>
-                        <artifactId>Persistencia</artifactId>
+                        <groupId>com.mycompany.subsistemainiciosesion</groupId>
+                        <artifactId>SubsistemaInicioSesion</artifactId>
                         <version>1.0-SNAPSHOT</version>
+                        <exclusions>
+                                <exclusion>
+                                        <groupId>com.mycompany.dto</groupId>
+                                        <artifactId>DTO</artifactId>
+                                </exclusion>
+                                <exclusion>
+                                        <groupId>com.mycompany.pasteleriabo</groupId>
+                                        <artifactId>PasteleriaBO</artifactId>
+                                </exclusion>
+                        </exclusions>
                 </dependency>
                 <dependency>
-                        <groupId>com.mycompany.pasteleriabo</groupId>
-                        <artifactId>PasteleriaBO</artifactId>
+                        <groupId>com.mycompany</groupId>
+                        <artifactId>SubsistemaModificarPedido</artifactId>
                         <version>1.0-SNAPSHOT</version>
+                        <exclusions>
+                                <exclusion>
+                                        <groupId>com.mycompany.dto</groupId>
+                                        <artifactId>DTO</artifactId>
+                                </exclusion>
+                                <exclusion>
+                                        <groupId>com.mycompany.pasteleriabo</groupId>
+                                        <artifactId>PasteleriaBO</artifactId>
+                                </exclusion>
+                        </exclusions>
                 </dependency>
                 <dependency>
                         <groupId>com.mycompany</groupId>
                         <artifactId>SubsitemaFinanzas</artifactId>
                         <version>1.0-SNAPSHOT</version>
+                        <exclusions>
+                                <exclusion>
+                                        <groupId>com.mycompany.dto</groupId>
+                                        <artifactId>DTO</artifactId>
+                                </exclusion>
+                                <exclusion>
+                                        <groupId>com.mycompany.pasteleriabo</groupId>
+                                        <artifactId>PasteleriaBO</artifactId>
+                                </exclusion>
+                        </exclusions>
                 </dependency>
                 <dependency>
                         <groupId>com.mycompany</groupId>
                         <artifactId>SubsistemaSAT</artifactId>
                         <version>1.0-SNAPSHOT</version>
+                        <exclusions>
+                                <exclusion>
+                                        <groupId>com.mycompany.dto</groupId>
+                                        <artifactId>DTO</artifactId>
+                                </exclusion>
+                                <exclusion>
+                                        <groupId>com.mycompany.pasteleriabo</groupId>
+                                        <artifactId>PasteleriaBO</artifactId>
+                                </exclusion>
+                        </exclusions>
                 </dependency>
                 <dependency>
                         <groupId>com.mycompany.dto</groupId>
@@ -64,14 +131,19 @@
                         <version>1.0-SNAPSHOT</version>
                 </dependency>
                 <dependency>
-                        <groupId>org.junit.jupiter</groupId>
-                        <artifactId>junit-jupiter-api</artifactId>
-                        <version>5.6.0</version>
-                        <type>jar</type>
+                        <groupId>com.mycompany.pasteleriabo</groupId>
+                        <artifactId>PasteleriaBO</artifactId>
+                        <version>1.0-SNAPSHOT</version>
+                        <exclusions>
+                                <exclusion>
+                                        <groupId>com.mycompany.persistencia</groupId>
+                                        <artifactId>Persistencia</artifactId>
+                                </exclusion>
+                        </exclusions>
                 </dependency>
                 <dependency>
-                        <groupId>com.mycompany</groupId>
-                        <artifactId>SubsistemaModificarPedido</artifactId>
+                        <groupId>com.mycompany.persistencia</groupId>
+                        <artifactId>Persistencia</artifactId>
                         <version>1.0-SNAPSHOT</version>
                 </dependency>
         </dependencies>

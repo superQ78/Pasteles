@@ -4,7 +4,6 @@
  */
 package ControlConsultarPedido;
 
-import Entidades.PedidoEntidad;
 import com.mycompany.dto.ClienteDTO;
 import com.mycompany.dto.PedidoDTO;
 import com.mycompany.pasteleriabo.ConsultaBO;

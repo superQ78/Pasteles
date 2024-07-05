@@ -5,7 +5,6 @@
 package FachadaConsultarPedido;
 
 import ControlConsultarPedido.ControlConsultarPedido;
-import Entidades.PedidoEntidad;
 import InterfaceConsultarPedido.IConsultaPedido;
 import com.mycompany.dto.ClienteDTO;
 import com.mycompany.dto.PedidoDTO;

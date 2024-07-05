@@ -17,22 +17,17 @@
             <groupId>com.mycompany.dto</groupId>
             <artifactId>DTO</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.mycompany.pasteleriabo</groupId>
-                    <artifactId>PasteleriaBO</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.mycompany.subsistemainiciosesion</groupId>
-                    <artifactId>SubsistemaInicioSesion</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.mycompany.pasteleriabo</groupId>
             <artifactId>PasteleriaBO</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <type>jar</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.mycompany.persistencia</groupId>
+                    <artifactId>Persistencia</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 </project>

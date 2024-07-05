@@ -22,6 +22,12 @@
             <groupId>com.mycompany.pasteleriabo</groupId>
             <artifactId>PasteleriaBO</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.mycompany.persistencia</groupId>
+                    <artifactId>Persistencia</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 </project>

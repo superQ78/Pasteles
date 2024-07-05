@@ -7,18 +7,13 @@
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
-            <groupId>com.mycompany.dto</groupId>
-            <artifactId>DTO</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.mycompany.subsistemainiciosesion</groupId>
-            <artifactId>SubsistemaInicioSesion</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>com.mycompany.persistencia</groupId>
             <artifactId>Persistencia</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mycompany.dto</groupId>
+            <artifactId>DTO</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

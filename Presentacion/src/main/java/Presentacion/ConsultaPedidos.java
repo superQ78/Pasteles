@@ -21,12 +21,12 @@ public class ConsultaPedidos extends javax.swing.JFrame {
     private IPedido pedido;
     private IInicioSesion inicioSesion;
 
-    public ConsultaPedidos(IPedido pedido, PedidoDTO pedidoDTO,IInicioSesion inicioSesion) {
-        this.consulta = new FachadaConsulta(); 
+    public ConsultaPedidos(IPedido pedido, PedidoDTO pedidoDTO, IInicioSesion inicioSesion) {
+        this.consulta = new FachadaConsulta();
         this.modificar = new ModificarFachada();
         this.consulta = consulta;
         this.pedido = pedido;
-        this.inicioSesion= inicioSesion;
+        this.inicioSesion = inicioSesion;
         this.pedidoDTO = pedidoDTO;
         initComponents();
         setSize(570, 650);
@@ -191,13 +191,13 @@ public class ConsultaPedidos extends javax.swing.JFrame {
         botonRegresar.setBackground(new java.awt.Color(153, 0, 153));
         botonRegresar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         botonRegresar.setForeground(new java.awt.Color(255, 255, 255));
-        botonRegresar.setText("Volver");
+        botonRegresar.setText("Buscar por filtro");
         botonRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonRegresarActionPerformed(evt);
             }
         });
-        obleaLabel.add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 20));
+        obleaLabel.add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 240, -1, -1));
 
         botonImprimir.setBackground(new java.awt.Color(153, 0, 153));
         botonImprimir.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -278,7 +278,7 @@ public class ConsultaPedidos extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        obleaLabel.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, 20));
+        obleaLabel.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 20));
 
         getContentPane().add(obleaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 700));
 
@@ -335,7 +335,7 @@ public class ConsultaPedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_botonModificarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-int option = JOptionPane.showConfirmDialog(this,
+        int option = JOptionPane.showConfirmDialog(this,
                 "Solo gerencia puede tramitar facturas, ¿desea iniciar sesión como gerente?",
                 "Tramitar Factura",
                 JOptionPane.YES_NO_OPTION);
@@ -348,9 +348,9 @@ int option = JOptionPane.showConfirmDialog(this,
         }    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-RealizarPedido menu= new RealizarPedido(pedido);
-menu.setVisible(true);
-this.dispose();
+        RealizarPedido menu = new RealizarPedido(pedido);
+        menu.setVisible(true);
+        this.dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
