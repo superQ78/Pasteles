@@ -1,9 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.persistencia;
 
+import Interface.IUsuarioDAO;
 import com.mycompany.dto.UsuarioDTO;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +10,7 @@ import java.util.List;
  *
  * @author cesar
  */
-public class UsuarioDAO {
+public class UsuarioDAO implements IUsuarioDAO{
    
     private List<UsuarioDTO> usuariosRegistrados;
 
@@ -31,6 +29,7 @@ public class UsuarioDAO {
         usuariosRegistrados.add(usuariosEmpleado1);
     }
 
+    @Override
     public UsuarioDTO obtenerUsuario(UsuarioDTO usuarioDTO) {
         for (UsuarioDTO usuario : usuariosRegistrados) {
             if (usuario.getNombre().equals(usuarioDTO.getNombre()) && 
@@ -41,6 +40,7 @@ public class UsuarioDAO {
         return null;
     }
 
+    @Override
     public List<UsuarioDTO> getUsuariosRegistrados() {
         return usuariosRegistrados;
     }

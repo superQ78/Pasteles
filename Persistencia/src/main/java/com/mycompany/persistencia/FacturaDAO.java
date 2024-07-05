@@ -1,29 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.persistencia;
 
 import Entidades.FacturaEntidad;
+import Interface.IFacturaDAO;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
  * @author cesar
  */
-public class FacturaDAO {
-    
+public class FacturaDAO implements IFacturaDAO{
 
-     public void insertarFactura(FacturaEntidad facturaEntidad) {
+    @Override
+    public void insertarFactura(FacturaEntidad facturaEntidad) {
         String sql = "INSERT INTO Facturas ( pedidoId, RFC, usoFiscal, CURP) VALUES (?, ?, ?, ? )";
-        try (Connection conn = DatabaseConexion.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConexion.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, facturaEntidad.getPedidoId());
             pstmt.setString(2, facturaEntidad.getRFC());
             pstmt.setString(3, facturaEntidad.getUsoFiscal());
@@ -33,11 +26,12 @@ public class FacturaDAO {
             System.out.println(e.getMessage());
         }
     }
-     public FacturaEntidad obtenerFacturaPorPedidoId(int pedidoId) {
+
+    @Override
+    public FacturaEntidad obtenerFacturaPorPedidoId(int pedidoId) {
         FacturaEntidad factura = null;
         String sql = "SELECT RFC, UsoFiscal, CURP FROM Facturas WHERE id = ?";
-        try (Connection conn = DatabaseConexion.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConexion.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, pedidoId);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
@@ -53,6 +47,4 @@ public class FacturaDAO {
         return factura;
     }
 
-
 }
-

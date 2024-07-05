@@ -1,7 +1,7 @@
-
 package com.mycompany.persistencia;
 
 import Entidades.PedidoEntidad;
+import Interface.IPedidoDAO;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -14,12 +14,13 @@ import java.util.List;
  *
  * @author cesar
  */
-public class PedidoDAO {
+public class PedidoDAO implements IPedidoDAO {
 
     // Constructor vacío porque no usaremos un ArrayList
     public PedidoDAO() {
     }
 
+    @Override
     public void agregarPedido(PedidoEntidad pedido) {
 
         String sql = "INSERT INTO pedidos (colores_decorativos, total_personas, precio_total, fecha_pedido, "
@@ -46,6 +47,7 @@ public class PedidoDAO {
         }
     }
 
+    @Override
     public PedidoEntidad obtenerPedidoPorId(int pedidoid) {
         PedidoEntidad pedido = null;
         String sql = "SELECT pedido_id, precio_total, cliente_id FROM Pedidos WHERE pedido_id = ?";
@@ -66,6 +68,7 @@ public class PedidoDAO {
         return pedido;
     }
 
+    @Override
     public List<PedidoEntidad> consultarPedidosPorCliente(String clienteId) {
         List<PedidoEntidad> resultado = new ArrayList<>();
 
@@ -95,6 +98,7 @@ public class PedidoDAO {
         return resultado;
     }
 
+    @Override
     public List<PedidoEntidad> consultarPedidos() {
         List<PedidoEntidad> pedidos = new ArrayList<>();
         String sql = "SELECT pedido_id, colores_decorativos, total_personas, precio_total, fecha_pedido, "
@@ -135,6 +139,7 @@ public class PedidoDAO {
      *
      * @return Una lista de pedidos realizados en el día actual.
      */
+    @Override
     public List<PedidoEntidad> obtenerPedidosDelDia() {
         List<PedidoEntidad> pedidos = new ArrayList<>();
         String sql = "SELECT pedido_id, cliente_id, colores_decorativos, total_personas, precio_total, fecha_pedido, "
@@ -171,6 +176,7 @@ public class PedidoDAO {
      * @param pedidoid El Id del pedido a obtener.
      * @return El objeto PedidoEntidad con los detalles del pedid.
      */
+    @Override
     public PedidoEntidad obtenerPedidoPorIds(int pedidoid) {
         PedidoEntidad pedido = null;
         String sql = "SELECT pedido_id, cliente_id, colores_decorativos, total_personas, precio_total, fecha_pedido, "
@@ -210,6 +216,7 @@ public class PedidoDAO {
      * @return Una lista de pedidos que coinciden con los criterios de búsqueda
      * especificados.
      */
+    @Override
     public List<PedidoEntidad> obtenerPedidosPorFiltro(String clienteId, java.sql.Date fecha, String estado) {
         List<PedidoEntidad> pedidos = new ArrayList<>();
         StringBuilder sql = new StringBuilder("SELECT pedido_id, cliente_id, colores_decorativos, total_personas, precio_total, fecha_pedido, "
@@ -267,6 +274,7 @@ public class PedidoDAO {
      * @param pedidoid El ID del pedido a actualizar.
      * @param nuevoEstado El nuevo estado que se asignará al pedido.
      */
+    @Override
     public void actualizarEstadoPedido(int pedidoid, String nuevoEstado) {
         String sql = "UPDATE pedidos SET estado = ? WHERE pedido_id = ?";
         try (Connection connection = DatabaseConexion.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -288,6 +296,7 @@ public class PedidoDAO {
      * @param pedido El pedido a actualizar.
      * @return true si la actualización fue exitosa, false si no.
      */
+    @Override
     public boolean actualizarPedido(PedidoEntidad pedido) {
         String sql = "UPDATE pedidos SET cliente_id = ?, colores_decorativos = ?, total_personas = ?, precio_total = ?, fecha_pedido = ?, "
                 + "relleno_sabor = ?, sabor_pan = ?, total_velas = ?, oblea_decorativa = ?, estado = ? WHERE pedido_id = ?";
